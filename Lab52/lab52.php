@@ -3,11 +3,13 @@ if (is_uploaded_file ($_FILES['nombre_archivo_cliente']['tmp_name']))
 {
     $nombreDirectorio = "archivos/";
     $nombrearchivo = $_FILES['nombre_archivo_cliente']['name'];
-    $nombreCompleto = $nombreDirectorio . $nombrearchivo;
+    $archivotipo = $_FILES['nombre_archivo_cliente']['type'];
     $archivosize = $_FILES['nombre_archivo_cliente']['size'];
-    if ($archivosize > 1024000) 
-    { 
-        echo "Archivo que sedea adjuntar supera el tamaño limite: 1MB";
+    $nombreCompleto = $nombreDirectorio . $nombrearchivo;   
+    
+    if (!((strpos($archivotipo, "gif") || strpos($archivotipo, "jpeg") || strpos($archivotipo, "jpg") || strpos($archivotipo, "png")) && ($archivosize < 1048576))) 
+    {
+        echo 'Extension o tamaño incorrectos';
     }
     else
     {
